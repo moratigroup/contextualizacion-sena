@@ -1,44 +1,834 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>contextualización SENA</title>
+    <title>Contextualización SENA</title>
     <style>
-        /* definir colores primarios, secundarios y de fondo */
+        body {
+            box-sizing: border-box;
+        }
+        
         :root {
             --color-primario: #00af00;
             --color-secundario: #fc6414;
             --color-terciario: #f1c40f;
             --color-fondo: #f9f9f9;
         }
-        /* Estilos generales */
+
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            border: 0;
+            box-sizing: border-box;
         }
+
         body {
-            font-family: 'Arial', sans-serif;
-            margin: 20px;
-            background-color: #f9f9f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--color-fondo);
+            line-height: 1.6;
             color: #333;
         }
-        h1 {
-            color: #2c3e50;
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
-        p {
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--color-primario), #008800);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="70" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="70" cy="80" r="2.5" fill="rgba(255,255,255,0.1)"/></svg>');
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--color-primario);
+            font-size: 2rem;
+            margin: 0 auto 2rem auto;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            border: 4px solid var(--color-terciario);
+        }
+
+        .header-title {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header-subtitle {
+            font-size: 1.4rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .nav-item {
+            padding: 0.8rem 1.5rem;
+            background: var(--color-secundario);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-item:hover::before {
+            left: 100%;
+        }
+
+        .nav-item:hover {
+            background: #e55a12;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(252, 100, 20, 0.4);
+        }
+
+        .nav-item.active {
+            background: var(--color-terciario);
+            color: #333;
+            box-shadow: 0 4px 15px rgba(241, 196, 15, 0.4);
+        }
+
+        /* Main Content */
+        main {
+            padding: 4rem 0;
+        }
+
+        .section {
+            background: white;
+            margin: 3rem 0;
+            padding: 4rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--color-primario), var(--color-terciario), var(--color-secundario));
+        }
+
+        .section.active {
+            display: block;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        .section h2 {
+            color: var(--color-primario);
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--color-terciario);
+            border-radius: 2px;
+        }
+
+        .section h3 {
+            color: var(--color-secundario);
+            font-size: 1.8rem;
+            margin: 2.5rem 0 1.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section h3::before {
+            content: '▶';
+            color: var(--color-terciario);
+            font-size: 1.2rem;
+        }
+
+        .section p {
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            text-align: justify;
+            line-height: 1.8;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, var(--color-terciario), #f39c12);
+            padding: 3rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+            color: #333;
+            font-weight: 600;
+            font-size: 1.3rem;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(241, 196, 15, 0.3);
+            position: relative;
+        }
+
+        .highlight-box::before {
+            content: '💡';
+            font-size: 3rem;
+            position: absolute;
+            top: -1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 0.5rem;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .mission-vision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .mission-card, .vision-card {
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .mission-card {
+            background: linear-gradient(135deg, rgba(0, 175, 0, 0.1), rgba(0, 175, 0, 0.05));
+            border: 2px solid var(--color-primario);
+        }
+
+        .vision-card {
+            background: linear-gradient(135deg, rgba(252, 100, 20, 0.1), rgba(252, 100, 20, 0.05));
+            border: 2px solid var(--color-secundario);
+        }
+
+        .mission-card h3, .vision-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .mission-card h3 {
+            color: var(--color-primario);
+        }
+
+        .vision-card h3 {
+            color: var(--color-secundario);
+        }
+
+        .symbols-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .symbol-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            border-left: 6px solid var(--color-primario);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .symbol-card:nth-child(2) {
+            border-left-color: var(--color-secundario);
+        }
+
+        .symbol-card:nth-child(3) {
+            border-left-color: var(--color-terciario);
+        }
+
+        .symbol-card:nth-child(4) {
+            border-left-color: var(--color-primario);
+        }
+
+        .symbol-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .symbol-card h4 {
+            color: var(--color-secundario);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+        }
+
+        .symbol-card p {
+            color: #666;
             line-height: 1.6;
+            margin-bottom: 0;
+            font-size: 1.1rem;
+        }
+
+        .hymn-box {
+            background: linear-gradient(135deg, var(--color-primario), #008800);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hymn-box::before {
+            content: '🎵';
+            font-size: 4rem;
+            position: absolute;
+            top: 1rem;
+            right: 2rem;
+            opacity: 0.3;
+        }
+
+        .hymn-box h3 {
+            color: var(--color-terciario);
+            margin-bottom: 2rem;
+            font-size: 2.2rem;
+        }
+
+        .hymn-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            font-style: italic;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .organigrama-box {
+            background: var(--color-fondo);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 3px solid var(--color-terciario);
+            margin: 3rem 0;
+        }
+
+        .direccion-box {
+            background: linear-gradient(135deg, rgba(252, 100, 20, 0.1), rgba(252, 100, 20, 0.05));
+            padding: 3rem;
+            border-radius: 20px;
+            border: 2px solid var(--color-secundario);
+            margin: 3rem 0;
+        }
+
+        .lineas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .linea-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--color-primario);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .linea-item:hover {
+            transform: translateX(5px);
+        }
+
+        .linea-item::before {
+            content: '✓';
+            color: var(--color-primario);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .integrantes-box {
+            background: linear-gradient(135deg, var(--color-terciario), #f39c12);
+            padding: 3rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .integrantes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .integrante-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .integrante-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .integrante-card::before {
+            content: '👤';
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .integrante-name {
+            font-weight: bold;
+            color: var(--color-primario);
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #333, #222);
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: var(--color-terciario);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p {
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #555;
+            padding-top: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2.5rem;
+            }
+            
+            .nav-container {
+                gap: 1rem;
+            }
+            
+            .nav-item {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
+            
+            .section {
+                padding: 2.5rem 2rem;
+            }
+            
+            .section h2 {
+                font-size: 2.2rem;
+            }
+            
+            .mission-vision-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .symbols-grid,
+            .lineas-grid,
+            .integrantes-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .section {
+                padding: 2rem 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <img src="logo-sena-verde.png" alt="Logo de SENA" style="width:150px;">
+        <div class="container">
+            <div class="header-content">
+                <div><img src="logo-sena-naranja.png" alt="Logo SENA" style="width:120px;"></div>
+                <h1 class="header-title">CONTEXTUALIZACIÓN SENA</h1>
+                <p class="header-subtitle">Servicio Nacional de Aprendizaje</p>
+            </div>
+        </div>
     </header>
-    <h1>Bienvenido a la contextualización SENA</h1>
-    <p>Este es un proyecto de ejemplo para demostrar la estructura básica de un documento HTML.</p>
-    <p>¡Disfruta explorando!</p>
-</body>
+
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <a href="#" class="nav-item active" onclick="showSection('contextualizacion')">Contextualización</a>
+                <a href="#" class="nav-item" onclick="showSection('mision-vision')">Misión y Visión</a>
+                <a href="#" class="nav-item" onclick="showSection('simbolos')">Símbolos</a>
+                <a href="#" class="nav-item" onclick="showSection('himno')">Himno</a>
+                <a href="#" class="nav-item" onclick="showSection('organigrama')">Organigrama</a>
+                <a href="#" class="nav-item" onclick="showSection('direccion')">Dirección Formación</a>
+                <a href="#" class="nav-item" onclick="showSection('integrantes')">Integrantes</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <section id="contextualizacion" class="section active">
+                <h2>CONTEXTUALIZACIÓN SENA</h2>
+                
+                <div class="highlight-box">
+                    El SENA ofrece formación gratuita a millones de colombianos en programas técnicos, tecnológicos y cursos cortos. Estos programas ayudan al desarrollo económico, científico y social del país, fortalecen a las empresas y la industria, y mejoran la competitividad en los diferentes mercados.
+                </div>
+
+                <h3>Impacto Nacional</h3>
+                <p>El Servicio Nacional de Aprendizaje representa una de las inversiones más estratégicas del Estado colombiano en el desarrollo del capital humano. A través de su modelo de formación profesional integral, contribuye significativamente al crecimiento económico, la innovación tecnológica y el progreso social del país.</p>
+
+                <h3>Formación Integral</h3>
+                <p>La formación que ofrece el SENA va más allá de la capacitación técnica, abarcando el desarrollo de competencias ciudadanas, emprendimiento, innovación y liderazgo. Este enfoque integral prepara a los colombianos no solo para el mundo laboral, sino para ser agentes de cambio en sus comunidades.</p>
+
+                <h3>Alcance y Cobertura</h3>
+                <p>Con presencia en todo el territorio nacional, el SENA democratiza el acceso a la educación técnica y tecnológica, llegando especialmente a poblaciones vulnerables y regiones apartadas, contribuyendo así a la reducción de la desigualdad y la promoción de la equidad social.</p>
+            </section>
+
+            <section id="mision-vision" class="section">
+                <h2>MISIÓN Y VISIÓN</h2>
+                
+                <div class="mission-vision-grid">
+                    <div class="mission-card">
+                        <h3>🎯 MISIÓN</h3>
+                        <p>El SENA se encarga de preparar a los colombianos con formación gratuita, ayudándolos a desarrollarse y a encontrar mejores oportunidades de trabajo, al mismo tiempo que aporta al crecimiento económico y tecnológico del país.</p>
+                    </div>
+                    
+                    <div class="vision-card">
+                        <h3>🚀 VISIÓN</h3>
+                        <p>El SENA enfoca su visión hacia el año 2026 en donde desea convertirse en un referente de formación no solo a nivel nacional sino internacional, generando valor a la población y permitiendo el fortalecimiento económico y social apoyando las economías locales, además busca que sus aprendices sean personas íntegras, con vocación de servicio y formados con estándares de calidad mundial.</p>
+                    </div>
+                </div>
+
+                <h3>Objetivos Estratégicos</h3>
+                <p>La misión y visión del SENA se materializan a través de objetivos estratégicos que buscan la excelencia en la formación, la innovación constante, el desarrollo regional y la construcción de una sociedad más justa y equitativa para todos los colombianos.</p>
+            </section>
+
+            <section id="simbolos" class="section">
+                <h2>SÍMBOLOS SENA</h2>
+                
+                <div class="symbols-grid">
+                    <div class="symbol-card">
+                        <h4>🛡️ Escudo</h4>
+                        <p>El escudo y la bandera del SENA, diseñados al fundar la institución, reflejan los tres sectores económicos en los que se opera.</p>
+                    </div>
+                    
+                    <div class="symbol-card">
+                        <h4>🏳️ Bandera</h4>
+                        <p>El fondo es blanco y en el centro está el escudo de la institución.</p>
+                    </div>
+                    
+                    <div class="symbol-card">
+                        <h4>⚙️ Engranaje</h4>
+                        <p><strong>1. El piñón:</strong> Representa el sector industrial<br>
+                        <strong>2. El caduceo:</strong> Simboliza el comercio y servicios<br>
+                        <strong>3. El café:</strong> Relacionado con el sector primario y extractivo</p>
+                    </div>
+                    
+                    <div class="symbol-card">
+                        <h4>🎨 Logosímbolo</h4>
+                        <p>El logotipo refleja que en nuestra formación, cada persona es responsable de su propio aprendizaje.</p>
+                    </div>
+                </div>
+
+                <h3>Significado de los Símbolos</h3>
+                <p>Cada elemento simbólico del SENA tiene un profundo significado que representa la diversidad económica del país y el compromiso de la institución con el desarrollo integral de todos los sectores productivos colombianos.</p>
+            </section>
+
+            <section id="himno" class="section">
+                <h2>HIMNO SENA</h2>
+                
+                <div class="hymn-box">
+                    <h3>🎵 Himno Institucional</h3>
+                    <div class="hymn-text">
+                        <p>Estudiantes del SENA, ¡adelante por Colombia!<br>
+                        Con amor ánimo, transformemos el país en un lugar mejor.<br>
+                        El futuro de la patria está en nuestras manos;<br>
+                        el trabajo es el camino hacia el progreso.</p>
+                        
+                        <p>En el SENA, formamos hombres libres que quieren triunfar.<br>
+                        Con ciencia y técnica, trazaremos nuevos rumbos de paz.<br>
+                        La patria nos anima: ¡triunfemos!<br>
+                        Así lograremos más justicia y libertad.</p>
+                    </div>
+                </div>
+
+                <h3>Espíritu Institucional</h3>
+                <p>El himno del SENA encarna los valores fundamentales de la institución: el amor por Colombia, el compromiso con el progreso, la formación de ciudadanos libres y la búsqueda constante de la justicia y la libertad a través del trabajo y la educación.</p>
+            </section>
+
+            <section id="organigrama" class="section">
+                <h2>ORGANIGRAMA GENERAL</h2>
+                
+                <div class="organigrama-box">
+                    <h3>Estructura Organizacional</h3>
+                    <p>El SENA posee una estructura jerárquica encabezada por el Consejo Directivo Nacional y la Dirección General, apoyados por oficinas de Control Interno, Comunicaciones y Sistemas. Incluye direcciones de Formación Profesional, Empleo, Planeación, Jurídica, Administrativa y Financiera, junto con Direcciones Regionales y Centros de Formación, garantizando gestión eficiente, coordinación nacional y articulación con políticas de formación y empleo.</p>
+                </div>
+
+                <h3>Niveles Organizacionales</h3>
+                <p>La estructura del SENA está diseñada para garantizar una gestión eficiente y coordinada a nivel nacional, regional y local, asegurando que las políticas institucionales se implementen de manera efectiva en todos los centros de formación del país.</p>
+
+                <h3>Coordinación Nacional</h3>
+                <p>El modelo organizacional permite una articulación efectiva entre las diferentes direcciones y niveles, facilitando la toma de decisiones estratégicas y la implementación de programas de formación alineados con las necesidades del sector productivo nacional.</p>
+            </section>
+
+            <section id="direccion" class="section">
+                <h2>DIRECCIÓN DE FORMACIÓN PROFESIONAL</h2>
+                
+                <div class="direccion-box">
+                    <h3>Estructura de la Dirección</h3>
+                    <p>La dirección de formación profesional presenta nueve líneas estratégicas que garantizan la calidad y pertinencia de la formación ofrecida por el SENA:</p>
+                </div>
+
+                <div class="lineas-grid">
+                    <div class="linea-item">Producción Curricular</div>
+                    <div class="linea-item">Investigación Innovación y Producción Académica</div>
+                    <div class="linea-item">Formación Virtual y a Distancia</div>
+                    <div class="linea-item">Fomento del Bienestar y Liderazgo al Aprendiz</div>
+                    <div class="linea-item">Escuela de Instructores Rodolfo Martínez Tono</div>
+                    <div class="linea-item">Administración Educativa</div>
+                    <div class="linea-item">Gestión y Evaluación de la Calidad de la Formación</div>
+                    <div class="linea-item">Gestión Administrativa</div>
+                    <div class="linea-item">Programas de Fortalecimiento Institucional y Proyección Social</div>
+                </div>
+
+                <h3>Enfoque Integral</h3>
+                <p>Estas nueve líneas estratégicas trabajan de manera articulada para asegurar que la formación profesional integral del SENA mantenga los más altos estándares de calidad, innovación y pertinencia con las necesidades del sector productivo y social del país.</p>
+            </section>
+
+            <section id="integrantes" class="section">
+                <h2>INTEGRANTES DEL EQUIPO</h2>
+                
+                <div class="integrantes-box">
+                    <h3>👥 Equipo de Trabajo</h3>
+                    <p>Presentamos al equipo responsable de este proyecto de contextualización del SENA:</p>
+                </div>
+
+                <div class="integrantes-grid">
+                    <div class="integrante-card">
+                        <div class="integrante-name">Manuel de Jesús Álvarez de la Hoz</div>
+                    </div>
+                    <div class="integrante-card">
+                        <div class="integrante-name">Luisa Fernanda Cubillos Restrepo</div>
+                    </div>
+                    <div class="integrante-card">
+                        <div class="integrante-name">Karen Natalia Escobar Medina</div>
+                    </div>
+                    <div class="integrante-card">
+                        <div class="integrante-name">Erika Yurani Javela Tapiero</div>
+                    </div>
+                </div>
+
+                <h3>Compromiso Académico</h3>
+                <p>Este equipo de trabajo ha desarrollado una investigación exhaustiva sobre la contextualización del SENA, demostrando el compromiso con la excelencia académica y el conocimiento profundo de la institución más importante de formación profesional en Colombia.</p>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>SENA</h4>
+                    <p>Servicio Nacional de Aprendizaje</p>
+                    <p>Formación Profesional Integral</p>
+                    <p>Gratuita y de Calidad</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p>Línea gratuita: 018000 910270</p>
+                    <p>www.sena.edu.co</p>
+                    <p>Atención 24/7</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Cobertura</h4>
+                    <p>32 Departamentos</p>
+                    <p>117 Centros de Formación</p>
+                    <p>Presencia Nacional</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Equipo</h4>
+                    <p>Manuel Álvarez</p>
+                    <p>Luisa Cubillos</p>
+                    <p>Karen Escobar</p>
+                    <p>Erika Javela</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SENA - Servicio Nacional de Aprendizaje | Todos los derechos reservados</p>
+                <p>Conocimiento y Emprendimiento para todos los colombianos</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showSection(sectionId) {
+            // Ocultar todas las secciones
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remover clase active de todos los nav items
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Mostrar la sección seleccionada
+            document.getElementById(sectionId).classList.add('active');
+
+            // Agregar clase active al nav item clickeado
+            event.target.classList.add('active');
+
+            // Scroll suave hacia arriba
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Efecto de scroll para la navegación
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.boxShadow = '0 6px 20px rgba(0,0,0,0.2)';
+                nav.style.backdropFilter = 'blur(10px)';
+            } else {
+                nav.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+                nav.style.backdropFilter = 'none';
+            }
+        });
+
+        // Animaciones al hacer scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.symbol-card, .linea-item, .integrante-card');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        // Inicializar animaciones
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        // Configurar elementos para animación
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.symbol-card, .linea-item, .integrante-card');
+            elements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9891a5dad5d2f776',t:'MTc1OTU0OTEyMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
