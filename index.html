@@ -69,17 +69,13 @@
         .logo {
             width: 120px;
             height: 120px;
-            background: white;
+            margin: 0 auto 1rem auto;
+            display: block;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: var(--color-primario);
-            font-size: 2rem;
-            margin: 0 auto 2rem auto;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-            border: 4px solid var(--color-terciario);
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            object-fit: contain;
+            padding: 10px;
         }
 
         .header-title {
@@ -103,6 +99,49 @@
             position: sticky;
             top: 0;
             z-index: 100;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--color-primario);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+            background: none;
+            border: none;
+            z-index: 101;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--color-secundario);
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
         }
 
         .nav-container {
@@ -504,31 +543,95 @@
                 font-size: 2.5rem;
             }
             
+            .hamburger {
+                display: flex;
+            }
+            
             .nav-container {
-                gap: 1rem;
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100vh;
+                background: linear-gradient(135deg, var(--color-primario), var(--color-secundario));
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transition: left 0.3s ease;
+                z-index: 100;
+            }
+            
+            .nav-container.active {
+                left: 0;
             }
             
             .nav-item {
-                padding: 0.6rem 1rem;
-                font-size: 0.8rem;
+                padding: 1rem 2rem;
+                font-size: 1.2rem;
+                background: rgba(255, 255, 255, 0.2);
+                backdrop-filter: blur(10px);
+                border: 2px solid rgba(255, 255, 255, 0.3);
+                color: white;
+                min-width: 250px;
+                text-align: center;
+            }
+            
+            .nav-item:hover {
+                background: rgba(255, 255, 255, 0.3);
+                transform: scale(1.05);
+                box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            }
+            
+            .nav-item.active {
+                background: var(--color-terciario);
+                color: #333;
+                border-color: var(--color-terciario);
             }
             
             .section {
-                padding: 2.5rem 2rem;
+                padding: 2.5rem 1.5rem;
             }
             
             .section h2 {
                 font-size: 2.2rem;
             }
             
+            .section h3 {
+                font-size: 1.5rem;
+            }
+            
+            .section p {
+                font-size: 1.1rem;
+            }
+            
             .mission-vision-grid {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
             
             .symbols-grid,
             .lineas-grid,
             .integrantes-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .highlight-box {
+                padding: 2rem;
+                font-size: 1.1rem;
+            }
+            
+            .hymn-box {
+                padding: 2rem;
+            }
+            
+            .hymn-text {
+                font-size: 1.1rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
             }
         }
 
@@ -537,8 +640,69 @@
                 padding: 0 15px;
             }
             
+            .header-title {
+                font-size: 2rem;
+            }
+            
+            .header-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .logo {
+                width: 100px;
+                height: 100px;
+                font-size: 1.5rem;
+            }
+            
             .section {
-                padding: 2rem 1.5rem;
+                padding: 2rem 1rem;
+                margin: 2rem 0;
+            }
+            
+            .section h2 {
+                font-size: 1.8rem;
+            }
+            
+            .section h3 {
+                font-size: 1.3rem;
+            }
+            
+            .nav-item {
+                min-width: 200px;
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+            
+            .highlight-box {
+                padding: 1.5rem;
+                font-size: 1rem;
+            }
+            
+            .mission-card, .vision-card {
+                padding: 2rem;
+            }
+            
+            .hymn-box {
+                padding: 1.5rem;
+            }
+            
+            .hymn-text {
+                font-size: 1rem;
+            }
+            
+            .organigrama-box,
+            .direccion-box,
+            .integrantes-box {
+                padding: 2rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .footer-section h4 {
+                font-size: 1.1rem;
             }
         }
     </style>
@@ -547,7 +711,7 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div><img src="logo-sena-naranja.png" alt="Logo SENA" style="width:120px;"></div>
+                <img src="logo-sena-naranja.png" alt="Logo SENA" class="logo">
                 <h1 class="header-title">CONTEXTUALIZACIÓN SENA</h1>
                 <p class="header-subtitle">Servicio Nacional de Aprendizaje</p>
             </div>
@@ -556,14 +720,22 @@
 
     <nav>
         <div class="container">
-            <div class="nav-container">
-                <a href="#" class="nav-item active" onclick="showSection('contextualizacion')">Contextualización</a>
-                <a href="#" class="nav-item" onclick="showSection('mision-vision')">Misión y Visión</a>
-                <a href="#" class="nav-item" onclick="showSection('simbolos')">Símbolos</a>
-                <a href="#" class="nav-item" onclick="showSection('himno')">Himno</a>
-                <a href="#" class="nav-item" onclick="showSection('organigrama')">Organigrama</a>
-                <a href="#" class="nav-item" onclick="showSection('direccion')">Dirección Formación</a>
-                <a href="#" class="nav-item" onclick="showSection('integrantes')">Integrantes</a>
+            <div class="nav-wrapper">
+                
+                <button class="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="nav-container">
+                    <a href="#" class="nav-item active" onclick="showSection('contextualizacion')">Contextualización</a>
+                    <a href="#" class="nav-item" onclick="showSection('mision-vision')">Misión y Visión</a>
+                    <a href="#" class="nav-item" onclick="showSection('simbolos')">Símbolos</a>
+                    <a href="#" class="nav-item" onclick="showSection('himno')">Himno</a>
+                    <a href="#" class="nav-item" onclick="showSection('organigrama')">Organigrama</a>
+                    <a href="#" class="nav-item" onclick="showSection('direccion')">Dirección Formación</a>
+                    <a href="#" class="nav-item" onclick="showSection('integrantes')">Integrantes</a>
+                </div>
             </div>
         </div>
     </nav>
@@ -764,6 +936,21 @@
     </footer>
 
     <script>
+        function toggleMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const navContainer = document.querySelector('.nav-container');
+            
+            hamburger.classList.toggle('active');
+            navContainer.classList.toggle('active');
+            
+            // Prevenir scroll del body cuando el menú está abierto
+            if (navContainer.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+
         function showSection(sectionId) {
             // Ocultar todas las secciones
             const sections = document.querySelectorAll('.section');
@@ -782,6 +969,15 @@
 
             // Agregar clase active al nav item clickeado
             event.target.classList.add('active');
+
+            // Cerrar menú móvil si está abierto
+            const hamburger = document.querySelector('.hamburger');
+            const navContainer = document.querySelector('.nav-container');
+            if (navContainer.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navContainer.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
 
             // Scroll suave hacia arriba
             window.scrollTo({
@@ -830,5 +1026,5 @@
             });
         });
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9891a5dad5d2f776',t:'MTc1OTU0OTEyMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9891b4a5d53bf776',t:'MTc1OTU0OTcyNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
