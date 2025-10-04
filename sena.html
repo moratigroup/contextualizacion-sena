@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contextualización SENA</title>
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --color-primario: #00af00;
+            --color-secundario: #fc6414;
+            --color-terciario: #f1c40f;
+            --color-fondo: #f9f9f9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--color-fondo);
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--color-terciario), #fc6414);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            margin-left: 4rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .header-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .header-text p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            padding: 0.8rem 1.5rem;
+            background: var(--color-secundario);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            background: #e55a12;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(252, 100, 20, 0.3);
+        }
+
+        .nav-item.active {
+            background: var(--color-terciario);
+            color: #333;
+        }
+
+        /* Main Content */
+        main {
+            padding: 3rem 0;
+        }
+
+        .section {
+            background: white;
+            margin: 2rem 0;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section h2 {
+            color: var(--color-primario);
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid var(--color-terciario);
+            padding-bottom: 0.5rem;
+        }
+
+        .section h3 {
+            color: var(--color-secundario);
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem 0;
+        }
+
+        .section p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, var(--color-terciario), #f39c12);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background: var(--color-fondo);
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 5px solid var(--color-primario);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .card h4 {
+            color: var(--color-secundario);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section h4 {
+            color: var(--color-terciario);
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                text-align: center;
+            }
+            
+            .header-text h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-container {
+                gap: 1rem;
+            }
+            
+            .nav-item {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .section {
+                padding: 2rem 1.5rem;
+            }
+            
+            .section h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img class="logo" src="logo-sena-verde.png" alt="Logo SENA" style="width:120px; position:absolute; top:20px; left:20px;">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="header-text">
+                        <h1>CONTEXTUALIZACIÓN SENA</h1>
+                        <p>Servicio Nacional de Aprendizaje</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <a href="#" class="nav-item active" onclick="showSection('historia')">Historia</a>
+                <a href="#" class="nav-item" onclick="showSection('mision')">Misión y Visión</a>
+                <a href="#" class="nav-item" onclick="showSection('programas')">Programas</a>
+                <a href="#" class="nav-item" onclick="showSection('valores')">Valores</a>
+                <a href="#" class="nav-item" onclick="showSection('impacto')">Impacto Social</a>
+                <a href="#" class="nav-item" onclick="showSection('contacto')">Integrantes</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <section id="historia" class="section active">
+                <h2>Historia del SENA</h2>
+                <p>El Servicio Nacional de Aprendizaje (SENA) fue creado el 21 de junio de 1957 mediante el Decreto Ley 118, durante el gobierno del General Gustavo Rojas Pinilla. Nació como respuesta a la necesidad de formar técnicamente a los trabajadores de los diferentes sectores económicos del país.</p>
+                
+                <div class="highlight-box">
+                    <strong>Fecha de Creación:</strong> 21 de junio de 1957<br>
+                    <strong>Decreto:</strong> Decreto Ley 118<br>
+                    <strong>Gobierno:</strong> General Gustavo Rojas Pinilla
+                </div>
+
+                <h3>Evolución Histórica</h3>
+                <div class="grid">
+                    <div class="card">
+                        <h4>1957 - Fundación</h4>
+                        <p>Creación del SENA como institución encargada de la formación profesional de los trabajadores colombianos.</p>
+                    </div>
+                    <div class="card">
+                        <h4>1960s - Expansión</h4>
+                        <p>Apertura de los primeros centros de formación en las principales ciudades del país.</p>
+                    </div>
+                    <div class="card">
+                        <h4>1980s - Modernización</h4>
+                        <p>Incorporación de nuevas tecnologías y metodologías de enseñanza.</p>
+                    </div>
+                    <div class="card">
+                        <h4>2000s - Era Digital</h4>
+                        <p>Implementación de plataformas virtuales y formación a distancia.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="mision" class="section">
+                <h2>Misión y Visión</h2>
+                
+                <h3>Misión</h3>
+                <div class="highlight-box">
+                    El SENA está encargado de cumplir la función que le corresponde al Estado de invertir en el desarrollo social y técnico de los trabajadores colombianos, ofreciendo y ejecutando la formación profesional integral, para la incorporación y el desarrollo de las personas en actividades productivas que contribuyan al desarrollo social, económico y tecnológico del país.
+                </div>
+
+                <h3>Visión</h3>
+                <p>En el 2030, el SENA será una entidad de clase mundial en formación profesional integral y en el uso y apropiación de tecnología e innovación al servicio de personas y empresas; habrá contribuido decisivamente a incrementar la productividad de las empresas, la empleabilidad de las personas y al desarrollo regional, nacional y fronterizo.</p>
+
+                <h3>Objetivos Estratégicos</h3>
+                <div class="grid">
+                    <div class="card">
+                        <h4>Formación Integral</h4>
+                        <p>Brindar formación profesional integral con altos estándares de calidad.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Innovación Tecnológica</h4>
+                        <p>Promover la investigación, innovación y transferencia de tecnología.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Desarrollo Regional</h4>
+                        <p>Contribuir al desarrollo económico y social de las regiones.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="programas" class="section">
+                <h2>Programas de Formación</h2>
+                
+                <p>El SENA ofrece una amplia gama de programas de formación profesional integral, diseñados para responder a las necesidades del sector productivo y contribuir al desarrollo del país.</p>
+
+                <h3>Tipos de Formación</h3>
+                <div class="grid">
+                    <div class="card">
+                        <h4>Formación Titulada</h4>
+                        <p>Programas técnicos, tecnológicos y de especialización que otorgan certificación oficial.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Formación Complementaria</h4>
+                        <p>Cursos cortos para actualización y desarrollo de competencias específicas.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Formación Virtual</h4>
+                        <p>Programas en modalidad virtual y a distancia con apoyo tecnológico.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Formación Empresarial</h4>
+                        <p>Programas diseñados específicamente para empresas y organizaciones.</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>Más de 500 programas</strong> de formación en diferentes áreas del conocimiento, desde tecnología hasta artes y oficios tradicionales.
+                </div>
+            </section>
+
+            <section id="valores" class="section">
+                <h2>Valores y Principios</h2>
+                
+                <p>Los valores institucionales del SENA guían todas las acciones y decisiones de la entidad, asegurando un servicio de calidad y compromiso social.</p>
+
+                <div class="grid">
+                    <div class="card">
+                        <h4>🎯 Excelencia</h4>
+                        <p>Búsqueda permanente de la calidad y mejoramiento continuo en todos los procesos.</p>
+                    </div>
+                    <div class="card">
+                        <h4>🤝 Respeto</h4>
+                        <p>Reconocimiento de la dignidad humana y valoración de la diversidad.</p>
+                    </div>
+                    <div class="card">
+                        <h4>⚖️ Transparencia</h4>
+                        <p>Actuación clara, honesta y ética en todas las actividades institucionales.</p>
+                    </div>
+                    <div class="card">
+                        <h4>🌱 Responsabilidad Social</h4>
+                        <p>Compromiso con el desarrollo sostenible y el bienestar de la sociedad.</p>
+                    </div>
+                    <div class="card">
+                        <h4>💡 Innovación</h4>
+                        <p>Promoción de la creatividad y adopción de nuevas tecnologías.</p>
+                    </div>
+                    <div class="card">
+                        <h4>🎓 Pertinencia</h4>
+                        <p>Formación alineada con las necesidades del sector productivo y social.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="impacto" class="section">
+                <h2>Impacto Social</h2>
+                
+                <p>El SENA ha transformado la vida de millones de colombianos a través de la formación profesional integral, contribuyendo significativamente al desarrollo económico y social del país.</p>
+
+                <h3>Cifras de Impacto</h3>
+                <div class="grid">
+                    <div class="card">
+                        <h4>📊 Cobertura Nacional</h4>
+                        <p>Presencia en los 32 departamentos de Colombia con más de 117 centros de formación.</p>
+                    </div>
+                    <div class="card">
+                        <h4>👥 Aprendices Formados</h4>
+                        <p>Más de 9 millones de colombianos han sido beneficiados con formación SENA.</p>
+                    </div>
+                    <div class="card">
+                        <h4>🏢 Alianzas Empresariales</h4>
+                        <p>Convenios con miles de empresas para formación práctica y empleabilidad.</p>
+                    </div>
+                    <div class="card">
+                        <h4>🌐 Formación Virtual</h4>
+                        <p>Plataforma líder en educación virtual con alcance internacional.</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>Contribución al PIB:</strong> La formación SENA contribuye significativamente al crecimiento económico del país, mejorando la productividad y competitividad de los sectores productivos.
+                </div>
+
+                <h3>Reconocimientos</h3>
+                <p>El SENA ha recibido múltiples reconocimientos nacionales e internacionales por su excelencia en formación profesional y su contribución al desarrollo social y económico de Colombia.</p>
+            </section>
+            <section>
+                <h2>Integrantes</h2>
+                <p>Este proyecto fue desarrollado por:</p>
+                <ul>
+                    <li>Manuel De Jesús Alvarez De La Hoz</li>
+                    <li>Luisa Fernanda Cubillos Restrepo</li>
+                    <li>Karen Natalia Escobar Medina</li>
+                    <li>Erika Yurani Javela Tapiero</li>
+                </ul>
+                <p>¡Gracias por visitar nuestra contextualización del SENA!</p>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>SENA</h4>
+                    <p>Servicio Nacional de Aprendizaje</p>
+                    <p>Formando para el futuro</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <p>Línea gratuita: 018000 910270</p>
+                    <p>www.sena.edu.co</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Síguenos</h4>
+                    <p>Redes sociales oficiales</p>
+                    <p>@SENAColombia</p>
+                </div>
+            </div>
+            <p>&copy; 2024 SENA - Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        function showSection(sectionId) {
+            // Ocultar todas las secciones
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remover clase active de todos los nav items
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Mostrar la sección seleccionada
+            document.getElementById(sectionId).classList.add('active');
+
+            // Agregar clase active al nav item clickeado
+            event.target.classList.add('active');
+
+            // Scroll suave hacia arriba
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Efecto de scroll suave para la navegación sticky
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+            } else {
+                nav.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'989189c0d0f4f776',t:'MTc1OTU0Nzk3MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
